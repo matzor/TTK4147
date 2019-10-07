@@ -22,6 +22,7 @@
 #define RESPONSE_C  AVR32_PIN_PB00
 
 
+
 void busy_delay_ms(int delay){
     for(; delay != 0; delay--){
         for(int i = 0; i < 2108; i++){
@@ -56,8 +57,8 @@ void init(){
     #endif
 }
 
-static void taskFn(void* args){
-	const portTickType delay = 1000 / portTICK_RATE_MS;
+static void taskLed0(void* args){
+	const portTickType delay = 200 / portTICK_RATE_MS;
 	
     int iter = 0;
 
@@ -69,12 +70,65 @@ static void taskFn(void* args){
 	}
 }
 
+static void taskLed1(void* args){
+	const portTickType delay = 500 / portTICK_RATE_MS;
+	
+	int iter = 0;
+
+	while(1){
+		gpio_toggle_pin(LED1_GPIO);
+		printf("tick %d\n", iter++);
+		
+		vTaskDelay(delay);
+	}
+}
+
+struct responseTaskArgs{
+	uint32_t test;
+	uint32_t response;
+};
+
+static void responseTask(void* args){
+	struct responseTaskArgs a = *(struct responseTaskArgs*)args;
+	if(a.test == TEST_C){
+		while(1){
+			vTaskDelay(1);
+			if(gpio_pin_is_low(a.test)){
+				busy_delay_ms(3);
+				gpio_set_pin_low(a.response);
+				vTaskDelay(1);
+				gpio_set_pin_high(a.response);
+			}
+		}
+	}
+	else{
+		while(1){
+			vTaskDelay(1);
+			if(gpio_pin_is_low(a.test)){
+				gpio_set_pin_low(a.response);
+				vTaskDelay(1);
+				gpio_set_pin_high(a.response);
+			}
+		}
+	}
+}
+
 
 int main(){
 	init();
         
-	xTaskCreate(taskFn, "", 1024, NULL, tskIDLE_PRIORITY + 1, NULL);
-
+	//xTaskCreate(taskLed0, "", 1024, NULL, tskIDLE_PRIORITY + 1, NULL);
+	//xTaskCreate(taskLed1, "", 1024, NULL, tskIDLE_PRIORITY + 1, NULL);
+	
+	xTaskCreate(responseTask, "", 1024,
+	(&(struct responseTaskArgs){TEST_A, RESPONSE_A}),
+	tskIDLE_PRIORITY + 2, NULL);
+	xTaskCreate(responseTask, "", 1024,
+	(&(struct responseTaskArgs){TEST_B, RESPONSE_B}),
+	tskIDLE_PRIORITY + 2, NULL);
+	xTaskCreate(responseTask, "", 1024,
+	(&(struct responseTaskArgs){TEST_C, RESPONSE_C}),
+	tskIDLE_PRIORITY + 1, NULL);
 	// Start the scheduler, anything after this will not run.
 	vTaskStartScheduler();
     

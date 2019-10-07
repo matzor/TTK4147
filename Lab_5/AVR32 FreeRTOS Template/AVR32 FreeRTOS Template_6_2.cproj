@@ -13,7 +13,7 @@
     <RootNamespace>$(MSBuildProjectName)</RootNamespace>
     <OutputType>Executable</OutputType>
     <Language>C</Language>
-    <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
+    <avrtool>com.atmel.avrdbg.tool.jtagice3plus</avrtool>
     <com_atmel_avrdbg_tool_jtagicemkii>
       <ToolType>com.atmel.avrdbg.tool.jtagicemkii</ToolType>
       <ToolName>JTAGICE mkII</ToolName>
@@ -222,7 +222,6 @@
     <com_atmel_avrdbg_tool_atmelice>
       <ToolOptions>
         <InterfaceProperties>
-          <JtagDbgClock>7500000</JtagDbgClock>
         </InterfaceProperties>
         <InterfaceName>JTAG</InterfaceName>
       </ToolOptions>
@@ -230,6 +229,17 @@
       <ToolNumber>J41800001443</ToolNumber>
       <ToolName>Atmel-ICE</ToolName>
     </com_atmel_avrdbg_tool_atmelice>
+    <com_atmel_avrdbg_tool_jtagice3plus>
+      <ToolOptions>
+        <InterfaceProperties>
+          <JtagDbgClock>7500000</JtagDbgClock>
+        </InterfaceProperties>
+        <InterfaceName>JTAG</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.jtagice3plus</ToolType>
+      <ToolNumber>J30200017561</ToolNumber>
+      <ToolName>JTAGICE3</ToolName>
+    </com_atmel_avrdbg_tool_jtagice3plus>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputFileName>AVR32 FreeRTOS Template</OutputFileName>
@@ -362,123 +372,123 @@
     <OutputFileExtension>.elf</OutputFileExtension>
     <ToolchainSettings>
       <Avr32Gcc>
-  <avr32gcc.common.outputfiles.hex>True</avr32gcc.common.outputfiles.hex>
-  <avr32gcc.common.outputfiles.lss>True</avr32gcc.common.outputfiles.lss>
-  <avr32gcc.common.outputfiles.eep>True</avr32gcc.common.outputfiles.eep>
-  <avr32gcc.common.outputfiles.srec>True</avr32gcc.common.outputfiles.srec>
-  <avr32gcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>BOARD=UC3_A3_XPLAINED</Value>
-      <Value>UDD_ENABLE</Value>
-    </ListValues>
-  </avr32gcc.compiler.symbols.DefSymbols>
-  <avr32gcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/asf/avr32/boards</Value>
-      <Value>../src/asf/avr32/drivers/cpu/cycle_counter</Value>
-      <Value>../src/asf/avr32/boards/evk1104</Value>
-      <Value>../src/asf/avr32/drivers/flashc</Value>
-      <Value>../src/asf/avr32/drivers/gpio</Value>
-      <Value>../src/asf/avr32/drivers/intc</Value>
-      <Value>../src/asf/avr32/drivers/pm</Value>
-      <Value>../src/asf/avr32/drivers/tc</Value>
-      <Value>../src/asf/avr32/drivers/usart</Value>
-      <Value>../src/asf/avr32/utils</Value>
-      <Value>../src/asf/avr32/utils/preprocessor</Value>
-      <Value>../src/asf/common/boards</Value>
-      <Value>../src/asf/common/utils</Value>
-      <Value>../src/asf/thirdparty/freertos/source/include</Value>
-      <Value>../src/asf/thirdparty/freertos/source/portable/gcc/avr32_uc3</Value>
-      <Value>../src/config</Value>
-      <Value>../src/asf/avr32/drivers/usbb</Value>
-      <Value>../src/asf/common/utils/stdio/stdio_usb</Value>
-      <Value>../src/asf/common/services/sleepmgr</Value>
-      <Value>../src/asf/common/services/clock</Value>
-      <Value>../src/asf/common/services/usb/class/cdc/device</Value>
-      <Value>../src/asf/common/services/usb/class/cdc</Value>
-      <Value>../src/asf/common/services/usb/udc</Value>
-      <Value>../src/asf/common/services/usb</Value>
-    </ListValues>
-  </avr32gcc.compiler.directories.IncludePaths>
-  <avr32gcc.compiler.optimization.level>Optimize (-O1)</avr32gcc.compiler.optimization.level>
-  <avr32gcc.compiler.optimization.OtherFlags>-fdata-sections</avr32gcc.compiler.optimization.OtherFlags>
-  <avr32gcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avr32gcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
-  <avr32gcc.compiler.optimization.DebugLevel>Maximum (-g3)</avr32gcc.compiler.optimization.DebugLevel>
-  <avr32gcc.compiler.warnings.AllWarnings>True</avr32gcc.compiler.warnings.AllWarnings>
-  <avr32gcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -Werror-implicit-function-declaration -Wpointer-arith</avr32gcc.compiler.miscellaneous.OtherFlags>
-  <avr32gcc.linker.libraries.Libraries>
-    <ListValues>
-      <Value>libm</Value>
-    </ListValues>
-  </avr32gcc.linker.libraries.Libraries>
-  <avr32gcc.linker.optimization.GarbageCollectUnusedSections>True</avr32gcc.linker.optimization.GarbageCollectUnusedSections>
-  <avr32gcc.linker.miscellaneous.LinkerFlags>-T../src/asf/avr32/utils/linker_scripts/at32uc3a3/256/gcc/link_uc3a3256.lds -Wl,-e,_trampoline</avr32gcc.linker.miscellaneous.LinkerFlags>
-  <avr32gcc.assembler.general.AssemblerFlags>-mrelax</avr32gcc.assembler.general.AssemblerFlags>
-  <avr32gcc.assembler.general.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/asf/avr32/boards</Value>
-      <Value>../src/asf/avr32/boards/evk1104</Value>
-      <Value>../src/asf/avr32/drivers/flashc</Value>
-      <Value>../src/asf/avr32/drivers/gpio</Value>
-      <Value>../src/asf/avr32/drivers/intc</Value>
-      <Value>../src/asf/avr32/drivers/pm</Value>
-      <Value>../src/asf/avr32/drivers/tc</Value>
-      <Value>../src/asf/avr32/drivers/usart</Value>
-      <Value>../src/asf/avr32/utils</Value>
-      <Value>../src/asf/avr32/utils/preprocessor</Value>
-      <Value>../src/asf/common/boards</Value>
-      <Value>../src/asf/common/utils</Value>
-      <Value>../src/asf/thirdparty/freertos/demo/avr32_uc3_example</Value>
-      <Value>../src/asf/thirdparty/freertos/demo/avr32_uc3_example/at32uc3a3256_evk1104</Value>
-      <Value>../src/asf/thirdparty/freertos/demo/common/include</Value>
-      <Value>../src/asf/thirdparty/freertos/source/include</Value>
-      <Value>../src/asf/thirdparty/freertos/source/portable/gcc/avr32_uc3</Value>
-      <Value>../src/config</Value>
-      <Value>../src/asf/avr32/drivers/usbb</Value>
-      <Value>../src/asf/common/utils/stdio/stdio_usb</Value>
-      <Value>../src/asf/common/services/sleepmgr</Value>
-      <Value>../src/asf/common/services/clock</Value>
-      <Value>../src/asf/common/services/usb/class/cdc/device</Value>
-      <Value>../src/asf/common/services/usb/class/cdc</Value>
-      <Value>../src/asf/common/services/usb/udc</Value>
-      <Value>../src/asf/common/services/usb</Value>
-    </ListValues>
-  </avr32gcc.assembler.general.IncludePaths>
-  <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax</avr32gcc.preprocessingassembler.general.AssemblerFlags>
-  <avr32gcc.preprocessingassembler.general.IncludePaths>
-    <ListValues>
-      <Value>../src</Value>
-      <Value>../src/asf/avr32/boards</Value>
-      <Value>../src/asf/avr32/boards/evk1104</Value>
-      <Value>../src/asf/avr32/drivers/flashc</Value>
-      <Value>../src/asf/avr32/drivers/gpio</Value>
-      <Value>../src/asf/avr32/drivers/intc</Value>
-      <Value>../src/asf/avr32/drivers/pm</Value>
-      <Value>../src/asf/avr32/drivers/tc</Value>
-      <Value>../src/asf/avr32/drivers/usart</Value>
-      <Value>../src/asf/avr32/utils</Value>
-      <Value>../src/asf/avr32/utils/preprocessor</Value>
-      <Value>../src/asf/common/boards</Value>
-      <Value>../src/asf/common/utils</Value>
-      <Value>../src/asf/thirdparty/freertos/demo/avr32_uc3_example</Value>
-      <Value>../src/asf/thirdparty/freertos/demo/avr32_uc3_example/at32uc3a3256_evk1104</Value>
-      <Value>../src/asf/thirdparty/freertos/demo/common/include</Value>
-      <Value>../src/asf/thirdparty/freertos/source/include</Value>
-      <Value>../src/asf/thirdparty/freertos/source/portable/gcc/avr32_uc3</Value>
-      <Value>../src/config</Value>
-      <Value>../src/asf/avr32/drivers/usbb</Value>
-      <Value>../src/asf/common/utils/stdio/stdio_usb</Value>
-      <Value>../src/asf/common/services/sleepmgr</Value>
-      <Value>../src/asf/common/services/clock</Value>
-      <Value>../src/asf/common/services/usb/class/cdc/device</Value>
-      <Value>../src/asf/common/services/usb/class/cdc</Value>
-      <Value>../src/asf/common/services/usb/udc</Value>
-      <Value>../src/asf/common/services/usb</Value>
-    </ListValues>
-  </avr32gcc.preprocessingassembler.general.IncludePaths>
-</Avr32Gcc>
+        <avr32gcc.common.outputfiles.hex>True</avr32gcc.common.outputfiles.hex>
+        <avr32gcc.common.outputfiles.lss>True</avr32gcc.common.outputfiles.lss>
+        <avr32gcc.common.outputfiles.eep>True</avr32gcc.common.outputfiles.eep>
+        <avr32gcc.common.outputfiles.srec>True</avr32gcc.common.outputfiles.srec>
+        <avr32gcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>BOARD=UC3_A3_XPLAINED</Value>
+            <Value>UDD_ENABLE</Value>
+          </ListValues>
+        </avr32gcc.compiler.symbols.DefSymbols>
+        <avr32gcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/asf/avr32/boards</Value>
+            <Value>../src/asf/avr32/drivers/cpu/cycle_counter</Value>
+            <Value>../src/asf/avr32/boards/evk1104</Value>
+            <Value>../src/asf/avr32/drivers/flashc</Value>
+            <Value>../src/asf/avr32/drivers/gpio</Value>
+            <Value>../src/asf/avr32/drivers/intc</Value>
+            <Value>../src/asf/avr32/drivers/pm</Value>
+            <Value>../src/asf/avr32/drivers/tc</Value>
+            <Value>../src/asf/avr32/drivers/usart</Value>
+            <Value>../src/asf/avr32/utils</Value>
+            <Value>../src/asf/avr32/utils/preprocessor</Value>
+            <Value>../src/asf/common/boards</Value>
+            <Value>../src/asf/common/utils</Value>
+            <Value>../src/asf/thirdparty/freertos/source/include</Value>
+            <Value>../src/asf/thirdparty/freertos/source/portable/gcc/avr32_uc3</Value>
+            <Value>../src/config</Value>
+            <Value>../src/asf/avr32/drivers/usbb</Value>
+            <Value>../src/asf/common/utils/stdio/stdio_usb</Value>
+            <Value>../src/asf/common/services/sleepmgr</Value>
+            <Value>../src/asf/common/services/clock</Value>
+            <Value>../src/asf/common/services/usb/class/cdc/device</Value>
+            <Value>../src/asf/common/services/usb/class/cdc</Value>
+            <Value>../src/asf/common/services/usb/udc</Value>
+            <Value>../src/asf/common/services/usb</Value>
+          </ListValues>
+        </avr32gcc.compiler.directories.IncludePaths>
+        <avr32gcc.compiler.optimization.level>Optimize (-O1)</avr32gcc.compiler.optimization.level>
+        <avr32gcc.compiler.optimization.OtherFlags>-fdata-sections</avr32gcc.compiler.optimization.OtherFlags>
+        <avr32gcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avr32gcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+        <avr32gcc.compiler.optimization.DebugLevel>Maximum (-g3)</avr32gcc.compiler.optimization.DebugLevel>
+        <avr32gcc.compiler.warnings.AllWarnings>True</avr32gcc.compiler.warnings.AllWarnings>
+        <avr32gcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -Werror-implicit-function-declaration -Wpointer-arith</avr32gcc.compiler.miscellaneous.OtherFlags>
+        <avr32gcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avr32gcc.linker.libraries.Libraries>
+        <avr32gcc.linker.optimization.GarbageCollectUnusedSections>True</avr32gcc.linker.optimization.GarbageCollectUnusedSections>
+        <avr32gcc.linker.miscellaneous.LinkerFlags>-T../src/asf/avr32/utils/linker_scripts/at32uc3a3/256/gcc/link_uc3a3256.lds -Wl,-e,_trampoline</avr32gcc.linker.miscellaneous.LinkerFlags>
+        <avr32gcc.assembler.general.AssemblerFlags>-mrelax</avr32gcc.assembler.general.AssemblerFlags>
+        <avr32gcc.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/asf/avr32/boards</Value>
+            <Value>../src/asf/avr32/boards/evk1104</Value>
+            <Value>../src/asf/avr32/drivers/flashc</Value>
+            <Value>../src/asf/avr32/drivers/gpio</Value>
+            <Value>../src/asf/avr32/drivers/intc</Value>
+            <Value>../src/asf/avr32/drivers/pm</Value>
+            <Value>../src/asf/avr32/drivers/tc</Value>
+            <Value>../src/asf/avr32/drivers/usart</Value>
+            <Value>../src/asf/avr32/utils</Value>
+            <Value>../src/asf/avr32/utils/preprocessor</Value>
+            <Value>../src/asf/common/boards</Value>
+            <Value>../src/asf/common/utils</Value>
+            <Value>../src/asf/thirdparty/freertos/demo/avr32_uc3_example</Value>
+            <Value>../src/asf/thirdparty/freertos/demo/avr32_uc3_example/at32uc3a3256_evk1104</Value>
+            <Value>../src/asf/thirdparty/freertos/demo/common/include</Value>
+            <Value>../src/asf/thirdparty/freertos/source/include</Value>
+            <Value>../src/asf/thirdparty/freertos/source/portable/gcc/avr32_uc3</Value>
+            <Value>../src/config</Value>
+            <Value>../src/asf/avr32/drivers/usbb</Value>
+            <Value>../src/asf/common/utils/stdio/stdio_usb</Value>
+            <Value>../src/asf/common/services/sleepmgr</Value>
+            <Value>../src/asf/common/services/clock</Value>
+            <Value>../src/asf/common/services/usb/class/cdc/device</Value>
+            <Value>../src/asf/common/services/usb/class/cdc</Value>
+            <Value>../src/asf/common/services/usb/udc</Value>
+            <Value>../src/asf/common/services/usb</Value>
+          </ListValues>
+        </avr32gcc.assembler.general.IncludePaths>
+        <avr32gcc.preprocessingassembler.general.AssemblerFlags>-mrelax</avr32gcc.preprocessingassembler.general.AssemblerFlags>
+        <avr32gcc.preprocessingassembler.general.IncludePaths>
+          <ListValues>
+            <Value>../src</Value>
+            <Value>../src/asf/avr32/boards</Value>
+            <Value>../src/asf/avr32/boards/evk1104</Value>
+            <Value>../src/asf/avr32/drivers/flashc</Value>
+            <Value>../src/asf/avr32/drivers/gpio</Value>
+            <Value>../src/asf/avr32/drivers/intc</Value>
+            <Value>../src/asf/avr32/drivers/pm</Value>
+            <Value>../src/asf/avr32/drivers/tc</Value>
+            <Value>../src/asf/avr32/drivers/usart</Value>
+            <Value>../src/asf/avr32/utils</Value>
+            <Value>../src/asf/avr32/utils/preprocessor</Value>
+            <Value>../src/asf/common/boards</Value>
+            <Value>../src/asf/common/utils</Value>
+            <Value>../src/asf/thirdparty/freertos/demo/avr32_uc3_example</Value>
+            <Value>../src/asf/thirdparty/freertos/demo/avr32_uc3_example/at32uc3a3256_evk1104</Value>
+            <Value>../src/asf/thirdparty/freertos/demo/common/include</Value>
+            <Value>../src/asf/thirdparty/freertos/source/include</Value>
+            <Value>../src/asf/thirdparty/freertos/source/portable/gcc/avr32_uc3</Value>
+            <Value>../src/config</Value>
+            <Value>../src/asf/avr32/drivers/usbb</Value>
+            <Value>../src/asf/common/utils/stdio/stdio_usb</Value>
+            <Value>../src/asf/common/services/sleepmgr</Value>
+            <Value>../src/asf/common/services/clock</Value>
+            <Value>../src/asf/common/services/usb/class/cdc/device</Value>
+            <Value>../src/asf/common/services/usb/class/cdc</Value>
+            <Value>../src/asf/common/services/usb/udc</Value>
+            <Value>../src/asf/common/services/usb</Value>
+          </ListValues>
+        </avr32gcc.preprocessingassembler.general.IncludePaths>
+      </Avr32Gcc>
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
