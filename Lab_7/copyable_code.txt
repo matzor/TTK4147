@@ -1,0 +1,44 @@
+
+#include <native/task.h>
+#include <native/timer.h>
+#include <sys/mman.h>
+#include <rtdk.h>
+
+
+
+// Call these at the start of main
+
+rt_print_auto_init(1);
+mlockall(MCL_CURRENT | MCL_FUTURE);
+
+
+// Set single CPU for pthread threads (NOT Xenomai threads!)
+
+int set_cpu(int cpu_number){
+	cpu_set_t cpu;
+	CPU_ZERO(&cpu);
+	CPU_SET(cpu_number, &cpu);
+
+	return pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpu);
+}
+
+
+
+// Busy-polling that won't crash your computer (hopefully)
+
+unsigned long duration = 10000000000;  // 10 second timeout
+unsigned long endTime = rt_timer_read() + duration;
+
+while(1){
+
+    // do work
+    
+    if(rt_timer_read() > endTime){
+        rt_printf("Time expired\n");
+        rt_task_delete(NULL);
+    }
+    if(rt_task_yield()){
+        rt_printf("Task failed to yield\n");
+        rt_task_delete(NULL);
+    }
+}
